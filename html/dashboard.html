@@ -1,0 +1,199 @@
+<section class="screen stack-xl" data-screen="dashboard">
+  <div class="hero-strip">
+    <div>
+      <p class="eyebrow">FinanceControll</p>
+      <h2>Visao financeira por mes</h2>
+      <p class="subtle-copy">
+        Entradas, saidas, destinos de pagamento e previsao de fixos em uma leitura unica.
+      </p>
+    </div>
+    <div class="hero-actions">
+      <label class="field compact-field">
+        <span>Ano</span>
+        <select id="dashboard-year"></select>
+      </label>
+    </div>
+  </div>
+
+  <section class="metrics-grid" id="dashboard-overview" aria-label="Resumo anual"></section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Entradas</p>
+        <h3>Receitas por mes</h3>
+      </div>
+      <span class="panel-badge">Fixa + Variavel</span>
+    </div>
+    <form class="form-grid" id="entry-form">
+      <label class="field">
+        <span>Mes</span>
+        <select name="mes" required></select>
+      </label>
+      <label class="field">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="80" placeholder="Salario, freela..." required />
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo" required>
+          <option value="fixa">Fixa</option>
+          <option value="variavel">Variavel</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Valor</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <button class="primary-button" type="submit">
+        <span data-icon="plus"></span>
+        <span>Adicionar</span>
+      </button>
+    </form>
+    <div class="month-income-grid" id="income-by-month"></div>
+  </section>
+
+  <div class="split-grid">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Categorias</p>
+          <h3>Gastos</h3>
+        </div>
+        <div class="catalog-header-actions" id="category-list-controls"></div>
+      </div>
+      <form class="form-grid catalog-grid" id="category-form">
+        <label class="field">
+          <span>Nome</span>
+          <input name="nome" type="text" maxlength="60" placeholder="Internet, imposto..." required />
+        </label>
+        <label class="field">
+          <span>Tipo</span>
+          <select name="tipo" required>
+            <option value="variavel">Variavel</option>
+            <option value="fixa">Fixa</option>
+          </select>
+        </label>
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span>Adicionar</span>
+        </button>
+      </form>
+      <div class="data-list" id="category-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Destinos</p>
+          <h3>Cartoes, conta e cofre</h3>
+        </div>
+        <div class="catalog-header-actions" id="destination-list-controls"></div>
+      </div>
+      <form class="form-grid destination-grid" id="destination-form">
+        <label class="field">
+          <span>Nome</span>
+          <input name="nome" type="text" maxlength="60" placeholder="Cartao Nubank..." required />
+        </label>
+        <label class="field">
+          <span>Tipo</span>
+          <select name="tipo" required>
+            <option value="cartao">Cartao</option>
+            <option value="conta">Conta/Pix</option>
+            <option value="reserva">Cofre/Reserva</option>
+          </select>
+        </label>
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span>Adicionar</span>
+        </button>
+      </form>
+      <div class="data-list" id="destination-list"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Recorrentes</p>
+        <h3>Gastos recorrentes</h3>
+      </div>
+      <span class="panel-badge" id="recurring-mode-badge">Fixa mensal</span>
+    </div>
+    <form class="form-grid recurring-grid" id="recurring-form">
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo_recorrencia" required>
+          <option value="fixa">Fixa</option>
+          <option value="parcelada">Parcelada</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="80" placeholder="Internet, aluguel..." required />
+      </label>
+      <label class="field">
+        <span>Categoria</span>
+        <select name="categoria_id" required></select>
+      </label>
+      <label class="field">
+        <span>Destino</span>
+        <select name="destino_id" required></select>
+      </label>
+      <label class="field">
+        <span data-recurring-value-label>Valor mensal</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <label class="field">
+        <span>Pagamento</span>
+        <select name="tipo_pagamento" required>
+          <option value="pix">Pix</option>
+          <option value="credito">Credito</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Dia</span>
+        <input name="dia_pagamento" type="number" min="1" max="31" value="1" required />
+      </label>
+      <label class="field">
+        <span>Inicio</span>
+        <input name="mes_inicio" type="month" required />
+      </label>
+      <label class="field" data-recurring-fixed>
+        <span>Fim</span>
+        <input name="mes_fim" type="month" required />
+      </label>
+      <label class="field is-hidden" data-recurring-installment>
+        <span>Parcelas</span>
+        <input name="parcelas_total" type="number" min="1" max="120" value="1" />
+      </label>
+      <div class="form-actions recurring-actions">
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span>Adicionar</span>
+        </button>
+      </div>
+    </form>
+    <div class="data-list" id="recurring-list"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Resumo mensal</p>
+        <h3>Fluxo disponivel</h3>
+      </div>
+    </div>
+    <div class="monthly-summary-grid" id="monthly-summary"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Projecao</p>
+        <h3>Fixos e parcelados por mes</h3>
+      </div>
+    </div>
+    <div class="projection-grid" id="projection-grid"></div>
+  </section>
+</section>

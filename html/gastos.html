@@ -1,0 +1,91 @@
+<section class="screen stack-xl" data-screen="gastos">
+  <div class="hero-strip compact">
+    <div>
+      <p class="eyebrow">Registro diario</p>
+      <h2>Registrar saidas</h2>
+      <p class="subtle-copy">Lancamentos Pix e credito conectados aos CSVs.</p>
+    </div>
+    <div class="hero-actions">
+      <label class="field compact-field">
+        <span>Ano</span>
+        <select id="expenses-year"></select>
+      </label>
+    </div>
+  </div>
+
+  <div class="month-tabs" id="expense-month-tabs" role="tablist" aria-label="Meses"></div>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Nova saida</p>
+        <h3 id="expense-form-title">Lancamento do mes</h3>
+      </div>
+      <span class="panel-badge" id="installment-preview">Tipo pela categoria</span>
+    </div>
+
+    <form class="form-grid expense-form-grid" id="expense-form">
+      <label class="field wide">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="100" placeholder="Mercado, notebook, conta..." required />
+      </label>
+      <label class="field">
+        <span>Categoria</span>
+        <select name="categoria_id" required></select>
+      </label>
+      <label class="field">
+        <span>Data de pagamento</span>
+        <input name="data_pagamento" type="date" required />
+      </label>
+      <label class="field">
+        <span>Destino</span>
+        <select name="destino_id" required></select>
+      </label>
+      <label class="field">
+        <span>Valor</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <label class="field">
+        <span>Tipo de pagamento</span>
+        <select name="tipo_pagamento" required>
+          <option value="credito">Credito</option>
+          <option value="pix">Pix</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit" id="expense-submit-button">
+          <span data-icon="plus"></span>
+          <span id="expense-submit-label">Registrar</span>
+        </button>
+        <button class="secondary-button is-hidden" type="button" id="expense-cancel-edit">Cancelar</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Mes selecionado</p>
+        <h3 id="expense-list-title">Gastos</h3>
+      </div>
+      <div class="inline-totals" id="expense-list-totals"></div>
+    </div>
+    <div class="table-shell">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descricao</th>
+            <th>Categoria</th>
+            <th>Destino</th>
+            <th>Pagamento</th>
+            <th>Pago</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="expense-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+</section>

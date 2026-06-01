@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI/UX Pro Max"
+  short_description: "Design intelligence for frontend UI/UX"
+  default_prompt: "Use $ui-ux-pro-max to design, build, review, or improve a frontend interface with a generated design system."

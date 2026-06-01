@@ -1,0 +1,11 @@
+{
+  "name": "financecontroll",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sistema web local para controle financeiro pessoal com SQLite e CSV.",
+  "scripts": {
+    "dev": "powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1",
+    "check": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1"
+  }
+}

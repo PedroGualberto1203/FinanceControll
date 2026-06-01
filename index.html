@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FinanceControll</title>
+    <meta
+      name="description"
+      content="Controle financeiro pessoal local com dashboard, SQLite, CSV e previsao de gastos."
+    />
+    <script>
+      window.tailwind = {
+        config: {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                ink: "#080B16",
+                panel: "#11172A",
+                panelSoft: "#161D34",
+                line: "rgba(255,255,255,0.08)",
+                blue: "#2F7BFF",
+                yellow: "#F3C74D"
+              },
+              fontFamily: {
+                sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+              },
+              boxShadow: {
+                glow: "0 24px 80px rgba(0,0,0,0.42)"
+              }
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/theme.css" />
+    <script src="vendor/papaparse.min.js"></script>
+    <script src="vendor/lucide-icons.js"></script>
+  </head>
+  <body class="dark">
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacao principal">
+        <a class="brand" href="#dashboard" aria-label="FinanceControll Dashboard">
+          <span class="brand-mark">f</span>
+          <span class="brand-name">FinanceControll</span>
+        </a>
+
+        <nav class="nav-stack">
+          <a class="nav-link is-active" href="#dashboard" data-route-link="dashboard">
+            <span data-icon="layout-dashboard"></span>
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-link" href="#gastos" data-route-link="gastos">
+            <span data-icon="receipt"></span>
+            <span>Gastos</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="eyebrow">Banco local</p>
+          <button class="ghost-pill" id="export-all-data" type="button">
+            <span data-icon="download"></span>
+            <span>Exportar CSVs</span>
+          </button>
+          <button class="ghost-pill" id="import-data-files" type="button">
+            <span data-icon="upload"></span>
+            <span>Importar CSVs</span>
+          </button>
+          <input id="csv-file-input" type="file" accept=".csv,text/csv" multiple hidden />
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Overview</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="sync-status" id="sync-status">Carregando dados...</span>
+            <button class="icon-button" id="refresh-data" type="button" aria-label="Recarregar dados">
+              <span data-icon="refresh-cw"></span>
+            </button>
+          </div>
+        </header>
+
+        <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+        <section id="view-root" class="view-root" tabindex="-1"></section>
+      </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
