@@ -28,6 +28,8 @@ async function bootstrap() {
 }
 
 function bindShellActions(repository) {
+  bindDrawerActions();
+
   document.getElementById("export-all-data").addEventListener("click", () => {
     repository.exportAll();
     notify("Exportacao iniciada", "Os CSVs foram baixados pelo navegador.");
@@ -54,6 +56,47 @@ function bindShellActions(repository) {
     } catch (error) {
       notify("Falha ao recarregar", error.message, "error");
       updateSyncStatus(repository);
+    }
+  });
+}
+
+function bindDrawerActions() {
+  const toggle = document.getElementById("mobile-drawer-toggle");
+  const close = document.getElementById("close-mobile-drawer");
+  const backdrop = document.getElementById("drawer-backdrop");
+  const sidebar = document.getElementById("app-sidebar");
+
+  if (!toggle || !backdrop || !sidebar) {
+    return;
+  }
+
+  const setDrawerOpen = (open) => {
+    document.body.classList.toggle("drawer-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    backdrop.hidden = !open;
+  };
+
+  toggle.addEventListener("click", () => {
+    setDrawerOpen(!document.body.classList.contains("drawer-open"));
+  });
+
+  close?.addEventListener("click", () => setDrawerOpen(false));
+  backdrop.addEventListener("click", () => setDrawerOpen(false));
+
+  sidebar.querySelectorAll("[data-route-link]").forEach((link) => {
+    link.addEventListener("click", () => setDrawerOpen(false));
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.body.classList.contains("drawer-open")) {
+      setDrawerOpen(false);
+      toggle.focus();
+    }
+  });
+
+  window.matchMedia("(min-width: 761px)").addEventListener("change", (event) => {
+    if (event.matches) {
+      setDrawerOpen(false);
     }
   });
 }

@@ -88,6 +88,20 @@ export class ApiRepository extends EventTarget {
     }
   }
 
+  async replaceAll(data, options = {}) {
+    const { emit = true } = options;
+    this.data = normalizeAll(await this.request("/api/data", {
+      method: "PUT",
+      body: JSON.stringify(data)
+    }));
+
+    if (emit) {
+      this.emitChange();
+    }
+
+    return this.getAll();
+  }
+
   async append(collection, row) {
     const saved = await this.request(`/api/collections/${encodeURIComponent(collection)}`, {
       method: "POST",

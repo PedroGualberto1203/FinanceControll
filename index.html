@@ -15,12 +15,12 @@
           theme: {
             extend: {
               colors: {
-                ink: "#080B16",
-                panel: "#11172A",
-                panelSoft: "#161D34",
+                ink: "#06070A",
+                panel: "#101116",
+                panelSoft: "#171920",
                 line: "rgba(255,255,255,0.08)",
-                blue: "#2F7BFF",
-                yellow: "#F3C74D"
+                blue: "#3A82FF",
+                yellow: "#F6C90E"
               },
               fontFamily: {
                 sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
@@ -39,16 +39,24 @@
     <script src="vendor/lucide-icons.js"></script>
   </head>
   <body class="dark">
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
     <div class="app-shell">
-      <aside class="sidebar" aria-label="Navegacao principal">
+      <aside class="sidebar" id="app-sidebar" aria-label="Navegacao principal">
+        <button class="sidebar-close" id="close-mobile-drawer" type="button" aria-label="Fechar menu">
+          <span data-icon="x"></span>
+        </button>
         <a class="brand" href="#dashboard" aria-label="FinanceControll Dashboard">
-          <span class="brand-mark">f</span>
+          <span class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
           <span class="brand-name">FinanceControll</span>
         </a>
 
         <nav class="nav-stack">
           <a class="nav-link is-active" href="#dashboard" data-route-link="dashboard">
-            <span data-icon="layout-dashboard"></span>
+            <span data-icon="home"></span>
             <span>Dashboard</span>
           </a>
           <a class="nav-link" href="#gastos" data-route-link="gastos">
@@ -73,6 +81,16 @@
 
       <main class="main-area">
         <header class="topbar">
+          <button
+            class="mobile-menu-button"
+            id="mobile-drawer-toggle"
+            type="button"
+            aria-label="Abrir menu"
+            aria-controls="app-sidebar"
+            aria-expanded="false"
+          >
+            <span data-icon="menu"></span>
+          </button>
           <div>
             <p class="eyebrow">Overview</p>
             <h1 id="page-title">Dashboard</h1>

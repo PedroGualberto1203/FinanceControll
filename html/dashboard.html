@@ -58,7 +58,7 @@
       <div class="panel-header">
         <div>
           <p class="eyebrow">Categorias</p>
-          <h3>Gastos</h3>
+          <h3 id="category-form-title">Gastos</h3>
         </div>
         <div class="catalog-header-actions" id="category-list-controls"></div>
       </div>
@@ -74,10 +74,13 @@
             <option value="fixa">Fixa</option>
           </select>
         </label>
-        <button class="primary-button" type="submit">
-          <span data-icon="plus"></span>
-          <span>Adicionar</span>
-        </button>
+        <div class="form-actions">
+          <button class="primary-button" type="submit">
+            <span data-icon="plus"></span>
+            <span id="category-submit-label">Adicionar</span>
+          </button>
+          <button class="secondary-button is-hidden" type="button" id="category-cancel-edit">Cancelar</button>
+        </div>
       </form>
       <div class="data-list" id="category-list"></div>
     </section>
@@ -116,9 +119,12 @@
     <div class="panel-header">
       <div>
         <p class="eyebrow">Recorrentes</p>
-        <h3>Gastos recorrentes</h3>
+        <h3 id="recurring-form-title">Gastos recorrentes</h3>
       </div>
-      <span class="panel-badge" id="recurring-mode-badge">Fixa mensal</span>
+      <div class="catalog-header-actions">
+        <span class="panel-badge" id="recurring-mode-badge">Fixa mensal</span>
+        <div class="catalog-header-actions" id="recurring-list-controls"></div>
+      </div>
     </div>
     <form class="form-grid recurring-grid" id="recurring-form">
       <label class="field">
@@ -170,8 +176,9 @@
       <div class="form-actions recurring-actions">
         <button class="primary-button" type="submit">
           <span data-icon="plus"></span>
-          <span>Adicionar</span>
+          <span id="recurring-submit-label">Adicionar</span>
         </button>
+        <button class="secondary-button is-hidden" type="button" id="recurring-cancel-edit">Cancelar</button>
       </div>
     </form>
     <div class="data-list" id="recurring-list"></div>

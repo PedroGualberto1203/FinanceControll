@@ -11,6 +11,7 @@ import {
   yearFromDate
 } from "../ui/formatters.js";
 import { emptyState, escapeHtml, hydrateIcons, icon, monthTabs, rowAction, tag, yearOptions } from "../ui/components.js";
+import { enhanceFormControls } from "../ui/field-controls.js";
 import { notify } from "../ui/notifications.js";
 
 let expensesBound = false;
@@ -319,6 +320,7 @@ function startExpenseEdit(root, id) {
   form.elements.tipo_pagamento.value = row.tipo_pagamento || "credito";
   updateInstallmentPreview(form.elements.categoria_id);
   updateExpenseFormMode(form);
+  enhanceFormControls(form);
   form.scrollIntoView({ block: "start", behavior: "smooth" });
 }
 
@@ -333,6 +335,7 @@ function resetExpenseForm(form) {
   form.elements.data_pagamento.value = `${filters.expenseYear}-${String(filters.expenseMonth).padStart(2, "0")}-01`;
   updateInstallmentPreview(form.elements.categoria_id);
   updateExpenseFormMode(form);
+  enhanceFormControls(form);
 }
 
 function updateExpenseFormMode(form) {

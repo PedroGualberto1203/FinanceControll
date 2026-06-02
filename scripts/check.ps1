@@ -64,7 +64,11 @@ $jsFiles = @(
   "js\data\csv-utils.js",
   "js\screens\dashboard.js",
   "js\screens\gastos.js",
+  "js\services\category-service.js",
+  "js\services\finance-service.js",
+  "js\services\projection-service.js",
   "js\services\recurring-service.js",
+  "js\services\validation-service.js",
   "js\state.js"
 )
 
@@ -80,5 +84,7 @@ Invoke-Checked $python @(
   "scripts\sqlite_store.py",
   "scripts\csv_io.py"
 )
+
+Invoke-Checked "node" @("--test", "tests\finance_services.test.mjs")
 
 Invoke-Checked $python @("-m", "unittest", "discover", "-s", "tests")

@@ -1,6 +1,7 @@
 import { renderDashboard } from "./screens/dashboard.js";
 import { renderExpenses } from "./screens/gastos.js";
 import { hydrateIcons } from "./ui/components.js";
+import { enhanceFormControls } from "./ui/field-controls.js";
 
 const ROUTES = {
   dashboard: {
@@ -38,6 +39,7 @@ export async function navigate(routeName = getRouteFromHash()) {
   updateActiveLinks(routeKey);
   route.render(root);
   hydrateIcons(root);
+  enhanceFormControls(root);
   root.focus({ preventScroll: true });
 }
 
@@ -45,6 +47,7 @@ export function rerenderCurrentRoute() {
   if (currentRoute && ROUTES[currentRoute]) {
     ROUTES[currentRoute].render(document.getElementById("view-root"));
     hydrateIcons(document.getElementById("view-root"));
+    enhanceFormControls(document.getElementById("view-root"));
   }
 }
 

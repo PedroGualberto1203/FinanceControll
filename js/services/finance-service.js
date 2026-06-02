@@ -7,22 +7,31 @@ export function getMonthlySummary(data, year) {
     const expenses = (data.gastos || []).filter((row) => Number(row.ano) === year && Number(row.mes) === month);
 
     const income = sumCents(entries);
+    const fixedIncome = sumCents(entries.filter((row) => row.tipo === "fixa"));
+    const variableIncome = sumCents(entries.filter((row) => row.tipo === "variavel"));
     const fixed = sumCents(expenses.filter((row) => row.tipo_gasto === "fixa"));
     const variable = sumCents(expenses.filter((row) => row.tipo_gasto === "variavel"));
     const installments = sumCents(expenses.filter((row) => row.tipo_gasto === "parcelada"));
     const outgoing = fixed + variable + installments;
-    const availableBalance = income - outgoing;
+    const cardCreditAvailable = fixedIncome - outgoing;
+    const pixBalance = variableIncome;
+    const generalCreditAvailable = income - outgoing;
 
     return {
       month,
       monthName,
       income,
+      fixedIncome,
+      variableIncome,
       fixed,
       variable,
       installments,
       outgoing,
-      netCash: availableBalance,
-      creditAvailable: availableBalance
+      cardCreditAvailable,
+      pixBalance,
+      generalCreditAvailable,
+      netCash: generalCreditAvailable,
+      creditAvailable: generalCreditAvailable
     };
   });
 }

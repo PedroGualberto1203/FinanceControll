@@ -24,6 +24,45 @@ export function synchronizeRecurringExpenses(data) {
   };
 }
 
+export function reconcileRecurringPendingExpenses(data, recurring) {
+  const existingExpenses = data.gastos || [];
+  const categories = toLookup(data.categorias || []);
+  const normalized = normalizeRecurring(recurring, categories);
+  const paidPeriods = new Set(
+    existingExpenses
+      .filter((row) => row.grupo_id === recurring.id && toBoolean(row.pago))
+      .map(periodExpenseKey)
+  );
+  const pendingByGeneratedKey = new Map(
+    existingExpenses
+      .filter((row) => row.grupo_id === recurring.id && !toBoolean(row.pago))
+      .map((row) => [generatedExpenseKey(row), row])
+  );
+  const preservedExpenses = existingExpenses.filter((row) => {
+    return row.grupo_id !== recurring.id || toBoolean(row.pago);
+  });
+
+  if (!normalized) {
+    return preservedExpenses;
+  }
+
+  const nextExpenses = buildRecurringExpenses(normalized)
+    .filter((expense) => !paidPeriods.has(periodExpenseKey(expense)))
+    .map((expense) => {
+      const previous = pendingByGeneratedKey.get(generatedExpenseKey(expense));
+
+      return {
+        ...expense,
+        id: previous?.id || expense.id,
+        criado_em: previous?.criado_em || expense.criado_em,
+        pago: "false",
+        atualizado_em: todayIso()
+      };
+    });
+
+  return [...preservedExpenses, ...nextExpenses];
+}
+
 export function buildRecurringExpenses(recurring) {
   const type = getRecurringType(recurring);
   const periods = getPeriodsBetween(recurring.mes_inicio, recurring.mes_fim);
@@ -156,6 +195,18 @@ function hasGeneratedExpense(existingExpenses, pendingExpenses, expense) {
 
     return Number(row.ano) === Number(expense.ano) && Number(row.mes) === Number(expense.mes);
   });
+}
+
+function generatedExpenseKey(row) {
+  if (row.tipo_gasto === "parcelada") {
+    return `parcelada:${Number(row.parcela_atual) || 1}`;
+  }
+
+  return `fixa:${Number(row.ano) || 0}:${Number(row.mes) || 0}`;
+}
+
+function periodExpenseKey(row) {
+  return `${Number(row.ano) || 0}:${Number(row.mes) || 0}`;
 }
 
 function isValidPeriod(period) {

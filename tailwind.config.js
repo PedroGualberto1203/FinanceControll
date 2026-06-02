@@ -4,12 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#080B16",
-        panel: "#11172A",
-        panelSoft: "#161D34",
+        ink: "#06070A",
+        panel: "#101116",
+        panelSoft: "#171920",
         line: "rgba(255,255,255,0.08)",
-        blue: "#2F7BFF",
-        yellow: "#F3C74D"
+        blue: "#3A82FF",
+        yellow: "#F6C90E"
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
