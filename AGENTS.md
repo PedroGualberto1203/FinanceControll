@@ -25,6 +25,16 @@ Cada registro deve conter, quando aplicável:
 
 Atualizar `00-index.md` quando um novo registro relevante for criado.
 
+## Documentacao de regras de negocio
+
+Manter uma secao exclusiva de regras de negocio, calculos, validacoes e semantica financeira em:
+
+`C:\Users\PedroGualberto\OneDrive - DOTKON TECNOLOGIA LTDA\Documentos\PortalDotkon\vault\FinanceControll\regras-negocio`
+
+Toda alteracao futura em regra de negocio, calculo, classificacao financeira, recorrencia, parcelamento, validacao ou semantica de campo deve atualizar ou adicionar a documentacao correspondente em `regras-negocio/` no mesmo trabalho.
+
+Atualizar tambem `regras-negocio/99-historico-alteracoes.md` quando uma regra documentada for criada, alterada, removida ou reinterpretada.
+
 ## Frontend UI/UX
 
 Para tarefas de frontend que envolvam criar, redesenhar, revisar ou melhorar interfaces, usar a skill local:

@@ -112,7 +112,7 @@ function renderSelect(select, shell) {
     : selectedIndex;
 
   shell.dataset.activeIndex = String(clampIndex(activeIndex, options));
-  shell.innerHTML = `
+  const triggerHtml = `
     <div
       class="fc-control fc-select-control"
       role="combobox"
@@ -127,15 +127,42 @@ function renderSelect(select, shell) {
       <span class="fc-control-value">${escapeHtml(selected?.textContent || "Selecionar")}</span>
       <span class="fc-control-icon">${icon("chevron-down")}</span>
     </div>
-    <div class="fc-popover fc-select-popover" id="${escapeHtml(listId)}" role="listbox" ${isOpen ? "" : "hidden"}>
-      ${options.map((option, index) => renderSelectOption(controlId, option, index)).join("")}
-    </div>
   `;
+  const optionsHtml = options.map((option, index) => renderSelectOption(controlId, option, index)).join("");
+  const trigger = shell.querySelector("[data-fc-trigger]");
+  const popover = shell.querySelector(".fc-select-popover");
+
+  if (isOpen && trigger && popover) {
+    updateSelectTrigger(trigger, select, listId, controlId, Number(shell.dataset.activeIndex), selected?.textContent || "Selecionar");
+    popover.id = listId;
+    popover.hidden = false;
+    popover.innerHTML = optionsHtml;
+  } else {
+    shell.innerHTML = `
+      ${triggerHtml}
+      <div class="fc-popover fc-select-popover" id="${escapeHtml(listId)}" role="listbox" ${isOpen ? "" : "hidden"}>
+        ${optionsHtml}
+      </div>
+    `;
+  }
 
   if (isOpen) {
     setSelectActiveIndex(shell, Number(shell.dataset.activeIndex));
     alignPopover(shell);
   }
+}
+
+function updateSelectTrigger(trigger, select, listId, controlId, activeIndex, label) {
+  trigger.className = "fc-control fc-select-control";
+  trigger.setAttribute("role", "combobox");
+  trigger.setAttribute("tabindex", select.disabled ? "-1" : "0");
+  trigger.setAttribute("aria-controls", listId);
+  trigger.setAttribute("aria-expanded", "true");
+  trigger.setAttribute("aria-haspopup", "listbox");
+  trigger.setAttribute("aria-disabled", String(select.disabled));
+  trigger.setAttribute("aria-activedescendant", optionId(controlId, activeIndex));
+  trigger.dataset.fcTrigger = "";
+  updateTriggerContent(trigger, label, "chevron-down");
 }
 
 function renderSelectOption(controlId, option, index) {
@@ -173,7 +200,7 @@ function renderTemporal(input, shell) {
   const popoverId = `${ensureControlId(input)}-calendar`;
 
   shell.dataset.activeValue = activeValue;
-  shell.innerHTML = `
+  const triggerHtml = `
     <div
       class="fc-control fc-date-control"
       role="button"
@@ -187,14 +214,54 @@ function renderTemporal(input, shell) {
       <span class="fc-control-value">${escapeHtml(formatTemporalLabel(input))}</span>
       <span class="fc-control-icon">${icon(isMonth ? "calendar" : "calendar-days")}</span>
     </div>
-    <div class="fc-popover fc-calendar" id="${escapeHtml(popoverId)}" role="dialog" ${isOpen ? "" : "hidden"}>
-      ${isMonth ? renderMonthPicker(input, view, activeValue) : renderDatePicker(input, view, activeValue)}
-    </div>
   `;
+  const pickerHtml = isMonth ? renderMonthPicker(input, view, activeValue) : renderDatePicker(input, view, activeValue);
+  const trigger = shell.querySelector("[data-fc-trigger]");
+  const popover = shell.querySelector(".fc-calendar");
+
+  if (isOpen && trigger && popover) {
+    updateTemporalTrigger(trigger, input, popoverId, isOpen);
+    popover.id = popoverId;
+    popover.hidden = false;
+    popover.innerHTML = pickerHtml;
+  } else {
+    shell.innerHTML = `
+      ${triggerHtml}
+      <div class="fc-popover fc-calendar" id="${escapeHtml(popoverId)}" role="dialog" ${isOpen ? "" : "hidden"}>
+        ${pickerHtml}
+      </div>
+    `;
+  }
 
   if (isOpen) {
     setTemporalActiveValue(shell, activeValue);
     alignPopover(shell);
+  }
+}
+
+function updateTemporalTrigger(trigger, input, popoverId, isOpen) {
+  const isMonth = input.type === "month";
+  trigger.className = "fc-control fc-date-control";
+  trigger.setAttribute("role", "button");
+  trigger.setAttribute("tabindex", input.disabled ? "-1" : "0");
+  trigger.setAttribute("aria-expanded", String(isOpen));
+  trigger.setAttribute("aria-haspopup", "dialog");
+  trigger.setAttribute("aria-controls", popoverId);
+  trigger.setAttribute("aria-disabled", String(input.disabled));
+  trigger.dataset.fcTrigger = "";
+  updateTriggerContent(trigger, formatTemporalLabel(input), isMonth ? "calendar" : "calendar-days");
+}
+
+function updateTriggerContent(trigger, label, iconName) {
+  const value = trigger.querySelector(".fc-control-value");
+  const iconNode = trigger.querySelector(".fc-control-icon");
+
+  if (value) {
+    value.textContent = label;
+  }
+
+  if (iconNode) {
+    iconNode.innerHTML = icon(iconName);
   }
 }
 
@@ -526,9 +593,9 @@ function chooseSelectOption(select, shell, index) {
 
   select.value = option.value;
   shell.dataset.activeIndex = String(index);
-  renderSelect(select, shell);
-  dispatchChange(select);
   closeShell(shell);
+  dispatchChange(select);
+  renderSelect(select, shell);
   focusTrigger(shell);
 }
 
@@ -536,9 +603,9 @@ function chooseTemporalValue(input, shell, value) {
   input.value = value;
   shell.dataset.activeValue = value;
   setViewFromValue(shell, value, shell.dataset.controlType === "month");
-  renderTemporal(input, shell);
-  dispatchChange(input);
   closeShell(shell);
+  dispatchChange(input);
+  renderTemporal(input, shell);
   focusTrigger(shell);
 }
 
@@ -557,7 +624,26 @@ function setSelectActiveIndex(shell, index) {
 
   const trigger = shell.querySelector("[data-fc-trigger]");
   trigger?.setAttribute("aria-activedescendant", optionId(shell.dataset.controlFor, activeIndex));
-  shell.querySelector(`[data-index="${activeIndex}"]`)?.scrollIntoView({ block: "nearest" });
+  keepSelectOptionInView(shell, activeIndex);
+}
+
+function keepSelectOptionInView(shell, activeIndex) {
+  const popover = shell.querySelector(".fc-select-popover");
+  const option = popover?.querySelector(`[data-index="${activeIndex}"]`);
+  if (!popover || !option) {
+    return;
+  }
+
+  const optionTop = option.offsetTop;
+  const optionBottom = optionTop + option.offsetHeight;
+  const visibleTop = popover.scrollTop;
+  const visibleBottom = visibleTop + popover.clientHeight;
+
+  if (optionTop < visibleTop) {
+    popover.scrollTop = optionTop;
+  } else if (optionBottom > visibleBottom) {
+    popover.scrollTop = optionBottom - popover.clientHeight;
+  }
 }
 
 function setTemporalActiveValue(shell, value) {

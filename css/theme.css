@@ -298,12 +298,13 @@ select:focus-visible {
 
 .hero-strip {
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   min-height: 118px;
-  overflow: hidden;
+  overflow: visible;
   padding: 20px;
   min-width: 0;
   border-left: 4px solid var(--color-yellow);
@@ -588,7 +589,6 @@ select:focus-visible {
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
   overflow: hidden;
   transform-origin: top left;
-  animation: fc-popover-in 170ms var(--transition);
 }
 
 .fc-control-shell.is-align-end .fc-popover {
@@ -800,18 +800,6 @@ select:focus-visible {
 .fc-calendar-link:hover {
   background: rgba(246, 201, 14, 0.1);
   color: var(--color-yellow-strong);
-}
-
-@keyframes fc-popover-in {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .primary-button,
@@ -1435,7 +1423,22 @@ svg.icon {
   }
 
   .catalog-header-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
+  }
+
+  .data-row,
+  .income-row {
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+
+  .data-row > .tag,
+  .income-row > .tag,
+  .data-row .table-actions,
+  .income-row .table-actions,
+  .data-row > .danger-button,
+  .income-row > .danger-button {
+    justify-self: start;
   }
 
   .hero-actions .field.compact-field {

@@ -69,7 +69,8 @@ $jsFiles = @(
   "js\services\projection-service.js",
   "js\services\recurring-service.js",
   "js\services\validation-service.js",
-  "js\state.js"
+  "js\state.js",
+  "js\ui\field-controls.js"
 )
 
 foreach ($file in $jsFiles) {

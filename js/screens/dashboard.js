@@ -35,7 +35,7 @@ import {
 import { enhanceFormControls } from "../ui/field-controls.js";
 import { notify } from "../ui/notifications.js";
 
-let dashboardBound = false;
+let financeSectionsBound = false;
 let editingCategoryId = "";
 let editingRecurringId = "";
 const CATALOG_VISIBLE_LIMIT = 5;
@@ -49,39 +49,73 @@ export function renderDashboard(root) {
   const { year } = appState.getFilters();
   const data = appState.getData();
 
-  setupStaticControls(root, year);
+  setupDashboardControls(root, year);
   renderOverview(data, year);
   renderIncome(data, year);
-  renderCatalogs(data);
-  renderRecurring(data);
-  renderMonthlySummary(data, year);
-  renderProjection(data, year);
-  bindDashboardEvents(root);
+  bindFinanceSectionsEvents(root);
+  hydrateIcons(root);
+}
+
+export function renderCategoriesDestinations(root) {
+  syncCategoryEditingState(root.querySelector("#category-form"));
+  renderCatalogs(appState.getData());
+  bindFinanceSectionsEvents(root);
   updateCategoryFormMode(root.querySelector("#category-form"));
+  hydrateIcons(root);
+}
+
+export function renderRecurring(root) {
+  const { year } = appState.getFilters();
+  const data = appState.getData();
+
+  syncRecurringEditingState(root.querySelector("#recurring-form"));
+  setupRecurringControls(root, year);
+  renderRecurringList(data);
+  bindFinanceSectionsEvents(root);
   updateRecurringFormMode(root.querySelector("#recurring-form"));
   hydrateIcons(root);
 }
 
-function setupStaticControls(root, year) {
-  const yearSelect = root.querySelector("#dashboard-year");
+export function renderSummaryProjection(root) {
+  const { year } = appState.getFilters();
+  const data = appState.getData();
+
+  setupYearSelect(root.querySelector("#summary-year"), year);
+  renderMonthlySummary(data, year);
+  renderProjection(data, year);
+  bindFinanceSectionsEvents(root);
+  hydrateIcons(root);
+}
+
+function setupDashboardControls(root, year) {
+  setupYearSelect(root.querySelector("#dashboard-year"), year);
+
   const entryMonthSelect = root.querySelector('#entry-form [name="mes"]');
+  if (entryMonthSelect) {
+    entryMonthSelect.innerHTML = monthOptions(getCurrentMonth());
+  }
+}
+
+function setupRecurringControls(root, year) {
+  setupYearSelect(root.querySelector("#recurring-year"), year);
+
   const recurringCategorySelect = root.querySelector('#recurring-form [name="categoria_id"]');
   const recurringDestinationSelect = root.querySelector('#recurring-form [name="destino_id"]');
   const selectedCategoryId = recurringCategorySelect?.value || "";
   const selectedDestinationId = recurringDestinationSelect?.value || "";
 
-  if (yearSelect) {
-    yearSelect.innerHTML = yearOptions(year);
-    yearSelect.value = String(year);
-  }
-
-  if (entryMonthSelect) {
-    entryMonthSelect.innerHTML = monthOptions(getCurrentMonth());
-  }
-
   populateCategorySelect(recurringCategorySelect, appState.getData().categorias, undefined, selectedCategoryId);
   populateDestinationSelect(recurringDestinationSelect, appState.getData().destinos, selectedDestinationId);
   setupRecurringForm(root, year);
+}
+
+function setupYearSelect(select, year) {
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML = yearOptions(year);
+  select.value = String(year);
 }
 
 function setupRecurringForm(root, year) {
@@ -90,12 +124,29 @@ function setupRecurringForm(root, year) {
     return;
   }
 
-  setDefaultRecurringPeriods(form, year);
+  const selectedYear = String(Number(year) || getCurrentYear());
+  const forceYearDefaults = !editingRecurringId && form.dataset.defaultYear !== selectedYear;
+
+  setDefaultRecurringPeriods(form, year, forceYearDefaults);
+  form.dataset.defaultYear = selectedYear;
   syncRecurringTypeFields(form);
+}
+
+function rerenderCatalogCollection(collection) {
+  if (collection === "recorrencias_fixas") {
+    renderRecurringList(appState.getData());
+    return;
+  }
+
+  renderCatalogs(appState.getData());
 }
 
 function renderOverview(data, year) {
   const node = document.getElementById("dashboard-overview");
+  if (!node) {
+    return;
+  }
+
   const summary = getMonthlySummary(data, year);
   const totals = getAnnualTotals(summary);
   const currentMonthSummary = summary[getCurrentMonth() - 1] || summary[0];
@@ -110,6 +161,10 @@ function renderOverview(data, year) {
 
 function renderIncome(data, year) {
   const node = document.getElementById("income-by-month");
+  if (!node) {
+    return;
+  }
+
   const rows = data.entradas || [];
 
   node.innerHTML = MONTHS.map((monthName, index) => {
@@ -153,22 +208,26 @@ function renderCatalogs(data) {
   const categories = data.categorias || [];
   const destinations = data.destinos || [];
 
-  categoryList.innerHTML = renderExpandableList(
-    categories,
-    "categorias",
-    "Cadastre categorias para liberar os selects.",
-    renderCategoryRow
-  );
+  if (categoryList) {
+    categoryList.innerHTML = renderExpandableList(
+      categories,
+      "categorias",
+      "Cadastre categorias para liberar os selects.",
+      renderCategoryRow
+    );
+  }
   if (categoryControls) {
     categoryControls.innerHTML = renderCatalogControls(categories, "categorias", "category-list");
   }
 
-  destinationList.innerHTML = renderExpandableList(
-    destinations,
-    "destinos",
-    "Cadastre destinos para registrar gastos.",
-    renderDestinationRow
-  );
+  if (destinationList) {
+    destinationList.innerHTML = renderExpandableList(
+      destinations,
+      "destinos",
+      "Cadastre destinos para registrar gastos.",
+      renderDestinationRow
+    );
+  }
   if (destinationControls) {
     destinationControls.innerHTML = renderCatalogControls(destinations, "destinos", "destination-list");
   }
@@ -258,9 +317,13 @@ function catalogActions(id, collection, editLabel, deleteLabel) {
   `;
 }
 
-function renderRecurring(data) {
+function renderRecurringList(data) {
   const node = document.getElementById("recurring-list");
   const controls = document.getElementById("recurring-list-controls");
+  if (!node) {
+    return;
+  }
+
   const rows = data.recorrencias_fixas || [];
   const categories = toLookup(data.categorias || []);
   const destinations = toLookup(data.destinos || []);
@@ -299,6 +362,10 @@ function renderRecurringRow(row, categories, destinations) {
 
 function renderMonthlySummary(data, year) {
   const node = document.getElementById("monthly-summary");
+  if (!node) {
+    return;
+  }
+
   const summary = getMonthlySummary(data, year);
 
   node.innerHTML = summary
@@ -325,6 +392,10 @@ function renderMonthlySummary(data, year) {
 
 function renderProjection(data, year) {
   const node = document.getElementById("projection-grid");
+  if (!node) {
+    return;
+  }
+
   const projection = getProjection(data, year);
   const categories = toLookup(data.categorias || []);
 
@@ -366,29 +437,36 @@ function renderProjection(data, year) {
     .join("");
 }
 
-function bindDashboardEvents(root) {
-  if (dashboardBound) {
+const FINANCE_SCREEN_SELECTOR = [
+  '[data-screen="dashboard"]',
+  '[data-screen="categorias-destinos"]',
+  '[data-screen="recorrentes"]',
+  '[data-screen="resumo-projecao"]'
+].join(", ");
+
+function bindFinanceSectionsEvents(root) {
+  if (financeSectionsBound) {
     return;
   }
 
-  dashboardBound = true;
+  financeSectionsBound = true;
 
   root.addEventListener("change", (event) => {
-    if (!root.querySelector('[data-screen="dashboard"]')) {
+    if (!root.querySelector(FINANCE_SCREEN_SELECTOR)) {
       return;
     }
 
-    if (event.target.id === "dashboard-year") {
+    if (["dashboard-year", "recurring-year", "summary-year"].includes(event.target.id)) {
       appState.setFilter("year", event.target.value);
     }
 
-    if (event.target.name === "tipo_recorrencia") {
+    if (event.target.name === "tipo_recorrencia" && event.target.form) {
       syncRecurringTypeFields(event.target.form);
     }
   });
 
   root.addEventListener("submit", async (event) => {
-    if (!root.querySelector('[data-screen="dashboard"]')) {
+    if (!root.querySelector(FINANCE_SCREEN_SELECTOR)) {
       return;
     }
 
@@ -450,7 +528,7 @@ function bindDashboardEvents(root) {
   });
 
   root.addEventListener("click", async (event) => {
-    if (!root.querySelector('[data-screen="dashboard"]')) {
+    if (!root.querySelector(FINANCE_SCREEN_SELECTOR)) {
       return;
     }
 
@@ -458,11 +536,7 @@ function bindDashboardEvents(root) {
     if (toggle) {
       const collection = toggle.dataset.catalogToggle;
       expandedCatalogs[collection] = !expandedCatalogs[collection];
-      if (collection === "recorrencias_fixas") {
-        renderRecurring(appState.getData());
-      } else {
-        renderCatalogs(appState.getData());
-      }
+      rerenderCatalogCollection(collection);
       hydrateIcons(root);
       return;
     }
@@ -641,6 +715,7 @@ function startCategoryEdit(root, id) {
   }
 
   editingCategoryId = id;
+  form.dataset.editingId = id;
   form.elements.nome.value = row.nome || "";
   form.elements.tipo.value = row.tipo === "fixa" ? "fixa" : "variavel";
   updateCategoryFormMode(form);
@@ -654,9 +729,16 @@ function resetCategoryForm(form) {
   }
 
   editingCategoryId = "";
+  delete form.dataset.editingId;
   form.reset();
   updateCategoryFormMode(form);
   enhanceFormControls(form);
+}
+
+function syncCategoryEditingState(form) {
+  if (editingCategoryId && form?.dataset.editingId !== editingCategoryId) {
+    editingCategoryId = "";
+  }
 }
 
 function updateCategoryFormMode(form) {
@@ -685,6 +767,7 @@ function startRecurringEdit(root, id) {
   }
 
   editingRecurringId = id;
+  form.dataset.editingId = id;
   form.elements.tipo_recorrencia.value = getRecurringType(row);
   form.elements.descricao.value = row.descricao || "";
   form.elements.categoria_id.value = row.categoria_id || "";
@@ -707,6 +790,7 @@ function resetRecurringForm(form) {
   }
 
   editingRecurringId = "";
+  delete form.dataset.editingId;
   form.reset();
   form.elements.tipo_recorrencia.value = "fixa";
   form.elements.dia_pagamento.value = "1";
@@ -715,6 +799,12 @@ function resetRecurringForm(form) {
   syncRecurringTypeFields(form);
   updateRecurringFormMode(form);
   enhanceFormControls(form);
+}
+
+function syncRecurringEditingState(form) {
+  if (editingRecurringId && form?.dataset.editingId !== editingRecurringId) {
+    editingRecurringId = "";
+  }
 }
 
 function updateRecurringFormMode(form) {

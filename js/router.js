@@ -1,4 +1,9 @@
-import { renderDashboard } from "./screens/dashboard.js";
+import {
+  renderCategoriesDestinations,
+  renderDashboard,
+  renderRecurring,
+  renderSummaryProjection
+} from "./screens/dashboard.js";
 import { renderExpenses } from "./screens/gastos.js";
 import { hydrateIcons } from "./ui/components.js";
 import { enhanceFormControls } from "./ui/field-controls.js";
@@ -8,6 +13,21 @@ const ROUTES = {
     title: "Dashboard",
     template: "html/dashboard.html",
     render: renderDashboard
+  },
+  "categorias-destinos": {
+    title: "Categorias e Destinos",
+    template: "html/categorias-destinos.html",
+    render: renderCategoriesDestinations
+  },
+  recorrentes: {
+    title: "Recorrentes",
+    template: "html/recorrentes.html",
+    render: renderRecurring
+  },
+  "resumo-projecao": {
+    title: "Resumo e Projecao",
+    template: "html/resumo-projecao.html",
+    render: renderSummaryProjection
   },
   gastos: {
     title: "Registro de Gastos",

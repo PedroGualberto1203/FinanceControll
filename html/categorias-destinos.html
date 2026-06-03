@@ -1,0 +1,69 @@
+<section class="screen stack-xl" data-screen="categorias-destinos">
+  <div class="hero-strip compact">
+    <div>
+      <p class="eyebrow">Cadastros</p>
+      <h2>Categorias e Destinos</h2>
+      <p class="subtle-copy">Classificacao dos gastos e destinos de pagamento.</p>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Categorias</p>
+        <h3 id="category-form-title">Gastos</h3>
+      </div>
+      <div class="catalog-header-actions" id="category-list-controls"></div>
+    </div>
+    <form class="form-grid catalog-grid" id="category-form">
+      <label class="field">
+        <span>Nome</span>
+        <input name="nome" type="text" maxlength="60" placeholder="Internet, imposto..." required />
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo" required>
+          <option value="variavel">Variavel</option>
+          <option value="fixa">Fixa</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span id="category-submit-label">Adicionar</span>
+        </button>
+        <button class="secondary-button is-hidden" type="button" id="category-cancel-edit">Cancelar</button>
+      </div>
+    </form>
+    <div class="data-list" id="category-list"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Destinos</p>
+        <h3>Cartoes, conta e cofre</h3>
+      </div>
+      <div class="catalog-header-actions" id="destination-list-controls"></div>
+    </div>
+    <form class="form-grid destination-grid" id="destination-form">
+      <label class="field">
+        <span>Nome</span>
+        <input name="nome" type="text" maxlength="60" placeholder="Cartao Nubank..." required />
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo" required>
+          <option value="cartao">Cartao</option>
+          <option value="conta">Conta/Pix</option>
+          <option value="reserva">Cofre/Reserva</option>
+        </select>
+      </label>
+      <button class="primary-button" type="submit">
+        <span data-icon="plus"></span>
+        <span>Adicionar</span>
+      </button>
+    </form>
+    <div class="data-list" id="destination-list"></div>
+  </section>
+</section>
