@@ -404,15 +404,12 @@ select:focus-visible {
   background: rgba(255, 95, 109, 0.1);
 }
 
-<<<<<<< HEAD
 .panel-badge.is-negative {
   border-color: rgba(255, 95, 109, 0.42);
   color: #ffb8c0;
   background: rgba(255, 95, 109, 0.1);
 }
 
-=======
->>>>>>> origin/main
 .eyebrow {
   margin: 0;
   color: var(--color-yellow);
@@ -446,7 +443,6 @@ select:focus-visible {
   grid-template-columns: 1.5fr 1fr 0.8fr 1fr 0.75fr 0.85fr auto;
 }
 
-<<<<<<< HEAD
 .monthly-control-form-grid {
   grid-template-columns: 1.3fr 1fr 0.8fr 0.7fr 0.7fr 1.1fr auto;
 }
@@ -455,8 +451,6 @@ select:focus-visible {
   grid-template-columns: 1.2fr 0.6fr auto;
 }
 
-=======
->>>>>>> origin/main
 .field {
   display: grid;
   gap: 7px;
@@ -946,15 +940,12 @@ select:focus-visible {
   gap: 14px;
 }
 
-<<<<<<< HEAD
 .control-balance-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
-=======
->>>>>>> origin/main
 .metric-card {
   position: relative;
   overflow: hidden;
@@ -962,7 +953,6 @@ select:focus-visible {
   padding: 17px;
 }
 
-<<<<<<< HEAD
 .balance-card {
   position: relative;
   overflow: hidden;
@@ -1000,8 +990,6 @@ select:focus-visible {
   color: #ffb8c0;
 }
 
-=======
->>>>>>> origin/main
 .metric-card::after {
   position: absolute;
   inset: auto 0 0 0;
@@ -1203,13 +1191,10 @@ select:focus-visible {
   border-collapse: collapse;
 }
 
-<<<<<<< HEAD
 .monthly-control-table {
   min-width: 960px;
 }
 
-=======
->>>>>>> origin/main
 .data-table th,
 .data-table td {
   padding: 12px 10px;
@@ -1369,10 +1354,7 @@ svg.icon {
   }
 
   .metrics-grid,
-<<<<<<< HEAD
   .control-balance-grid,
-=======
->>>>>>> origin/main
   .monthly-summary-grid,
   .projection-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1383,13 +1365,9 @@ svg.icon {
   .catalog-grid,
   .destination-grid,
   .recurring-grid,
-<<<<<<< HEAD
   .expense-form-grid,
   .monthly-control-form-grid,
   .monthly-category-grid {
-=======
-  .expense-form-grid {
->>>>>>> origin/main
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1532,10 +1510,7 @@ svg.icon {
   }
 
   .metrics-grid,
-<<<<<<< HEAD
   .control-balance-grid,
-=======
->>>>>>> origin/main
   .split-grid,
   .month-income-grid,
   .monthly-summary-grid,
@@ -1545,13 +1520,9 @@ svg.icon {
   .catalog-grid,
   .destination-grid,
   .recurring-grid,
-<<<<<<< HEAD
   .expense-form-grid,
   .monthly-control-form-grid,
   .monthly-category-grid {
-=======
-  .expense-form-grid {
->>>>>>> origin/main
     grid-template-columns: 1fr;
   }
 

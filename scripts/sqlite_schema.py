@@ -3,11 +3,7 @@ from __future__ import annotations
 import math
 
 
-<<<<<<< HEAD
 SCHEMA_VERSION = 2
-=======
-SCHEMA_VERSION = 1
->>>>>>> origin/main
 
 
 COLLECTION_SCHEMAS = {
@@ -76,7 +72,6 @@ COLLECTION_SCHEMAS = {
         ),
         "numeric": ("valor_centavos", "dia_pagamento", "mes_inicio", "mes_fim", "parcelas_total"),
     },
-<<<<<<< HEAD
     "controle_mensal_gastos": {
         "file": "controle_mensal_gastos.csv",
         "columns": (
@@ -99,8 +94,6 @@ COLLECTION_SCHEMAS = {
         "columns": ("id", "nome", "ativo", "criado_em", "atualizado_em"),
         "numeric": (),
     },
-=======
->>>>>>> origin/main
 }
 
 
@@ -115,13 +108,10 @@ INDEX_SQL = (
     'CREATE INDEX IF NOT EXISTS "idx_gastos_destino" ON "gastos" ("destino_id")',
     'CREATE INDEX IF NOT EXISTS "idx_recorrencias_categoria" ON "recorrencias_fixas" ("categoria_id")',
     'CREATE INDEX IF NOT EXISTS "idx_recorrencias_destino" ON "recorrencias_fixas" ("destino_id")',
-<<<<<<< HEAD
     'CREATE INDEX IF NOT EXISTS "idx_controle_mensal_gastos_ano_mes" '
     'ON "controle_mensal_gastos" ("ano", "mes")',
     'CREATE INDEX IF NOT EXISTS "idx_controle_mensal_gastos_categoria" '
     'ON "controle_mensal_gastos" ("categoria_id")',
-=======
->>>>>>> origin/main
 )
 
 

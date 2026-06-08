@@ -2,10 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { getMonthlySummary } from "../js/services/finance-service.js";
-<<<<<<< HEAD
 import { getMonthlyControl, isMonthlyControlCategoryUsed } from "../js/services/monthly-control-service.js";
-=======
->>>>>>> origin/main
 import { reconcileRecurringPendingExpenses } from "../js/services/recurring-service.js";
 import { reclassifyPendingManualCategoryExpenses } from "../js/services/category-service.js";
 
@@ -36,7 +33,6 @@ test("monthly summary separates card credit, pix balance, and general credit", (
   assert.equal(june.creditAvailable, 200000);
 });
 
-<<<<<<< HEAD
 test("monthly control spends isolated credit and pix balances without changing summary", () => {
   const data = {
     entradas: [
@@ -83,8 +79,6 @@ test("monthly control spends isolated credit and pix balances without changing s
   assert.equal(isMonthlyControlCategoryUsed(data, "missing"), false);
 });
 
-=======
->>>>>>> origin/main
 test("recurring edit preserves paid expenses and recalculates pending generated expenses", () => {
   const recurring = {
     id: "rec-1",

@@ -5,14 +5,9 @@
   "type": "module",
   "description": "Sistema web local para controle financeiro pessoal com SQLite e CSV.",
   "scripts": {
-<<<<<<< HEAD
     "dev": "node scripts/start-local.mjs",
     "check": "node scripts/check.mjs",
     "dev:windows": "powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1",
     "check:windows": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1"
-=======
-    "dev": "powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1",
-    "check": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1"
->>>>>>> origin/main
   }
 }

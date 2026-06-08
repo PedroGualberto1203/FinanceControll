@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import sqlite3
-=======
->>>>>>> origin/main
 import sys
 import tempfile
 import unittest
@@ -11,11 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-<<<<<<< HEAD
 from sqlite_schema import COLLECTIONS, COLLECTION_SCHEMAS, create_table_sql
-=======
-from sqlite_schema import COLLECTIONS, COLLECTION_SCHEMAS
->>>>>>> origin/main
 from sqlite_store import FinanceStore, StoreError
 
 
@@ -50,11 +43,7 @@ class FinanceStoreTests(unittest.TestCase):
         self.assertTrue((self.root / "storage" / "financecontroll.sqlite3").exists())
         self.assertEqual(data["categorias"][0]["id"], "cat-seed")
         self.assertEqual(data["categorias"][0]["parcelas_padrao"], 1)
-<<<<<<< HEAD
         self.assertEqual(self.store.health()["schemaVersion"], 2)
-=======
-        self.assertEqual(self.store.health()["schemaVersion"], 1)
->>>>>>> origin/main
 
     def test_crud_and_duplicate_id_errors(self):
         row = {
@@ -186,7 +175,6 @@ class FinanceStoreTests(unittest.TestCase):
         self.assertEqual(entradas[0]["id"], "ent-original")
         self.assertEqual(self.store.get_collection("categorias")[0]["id"], "cat-seed")
 
-<<<<<<< HEAD
     def test_monthly_control_collections_crud(self):
         category = {
             "id": "cmc-1",
@@ -259,8 +247,6 @@ class FinanceStoreTests(unittest.TestCase):
         self.assertEqual(self.store.get_collection("controle_mensal_gastos"), [])
         self.assertEqual(self.store.get_collection("controle_mensal_categorias"), [])
 
-=======
->>>>>>> origin/main
 
 def write_csv_seed(root: Path, rows_by_collection: dict[str, list[dict]]) -> None:
     data_dir = root / "data"

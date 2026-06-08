@@ -8,13 +8,9 @@ class AppState extends EventTarget {
     this.filters = {
       year: getCurrentYear(),
       expenseYear: getCurrentYear(),
-<<<<<<< HEAD
       expenseMonth: getCurrentMonth(),
       monthlyControlYear: getCurrentYear(),
       monthlyControlMonth: getCurrentMonth()
-=======
-      expenseMonth: getCurrentMonth()
->>>>>>> origin/main
     };
   }
 
