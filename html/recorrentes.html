@@ -1,0 +1,84 @@
+<section class="screen stack-xl" data-screen="recorrentes">
+  <div class="hero-strip compact">
+    <div>
+      <p class="eyebrow">Recorrentes</p>
+      <h2>Gastos recorrentes</h2>
+      <p class="subtle-copy">Fixos mensais e parcelados planejados.</p>
+    </div>
+    <div class="hero-actions">
+      <label class="field compact-field">
+        <span>Ano</span>
+        <select id="recurring-year"></select>
+      </label>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Recorrentes</p>
+        <h3 id="recurring-form-title">Gastos recorrentes</h3>
+      </div>
+      <div class="catalog-header-actions">
+        <span class="panel-badge" id="recurring-mode-badge">Fixa mensal</span>
+        <div class="catalog-header-actions" id="recurring-list-controls"></div>
+      </div>
+    </div>
+    <form class="form-grid recurring-grid" id="recurring-form">
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo_recorrencia" required>
+          <option value="fixa">Fixa</option>
+          <option value="parcelada">Parcelada</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="80" placeholder="Internet, aluguel..." required />
+      </label>
+      <label class="field">
+        <span>Categoria</span>
+        <select name="categoria_id" required></select>
+      </label>
+      <label class="field">
+        <span>Destino</span>
+        <select name="destino_id" required></select>
+      </label>
+      <label class="field">
+        <span data-recurring-value-label>Valor mensal</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <label class="field">
+        <span>Pagamento</span>
+        <select name="tipo_pagamento" required>
+          <option value="pix">Pix</option>
+          <option value="credito">Credito</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Dia</span>
+        <input name="dia_pagamento" type="number" min="1" max="31" value="1" required />
+      </label>
+      <label class="field">
+        <span>Inicio</span>
+        <input name="mes_inicio" type="month" required />
+      </label>
+      <label class="field" data-recurring-fixed>
+        <span>Fim</span>
+        <input name="mes_fim" type="month" required />
+      </label>
+      <label class="field is-hidden" data-recurring-installment>
+        <span>Parcelas</span>
+        <input name="parcelas_total" type="number" min="1" max="120" value="1" />
+      </label>
+      <div class="form-actions recurring-actions">
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span id="recurring-submit-label">Adicionar</span>
+        </button>
+        <button class="secondary-button is-hidden" type="button" id="recurring-cancel-edit">Cancelar</button>
+      </div>
+    </form>
+    <div class="data-list" id="recurring-list"></div>
+  </section>
+</section>

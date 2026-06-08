@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+__pycache__/
+storage/.pycache/
+storage/*.sqlite3-wal
+storage/*.sqlite3-shm
+storage/*.sqlite3.bak-*
+storage/dev-*.log

@@ -1,0 +1,124 @@
+<section class="screen stack-xl" data-screen="controle-mensal">
+  <div class="hero-strip compact">
+    <div>
+      <p class="eyebrow">Controle do mes</p>
+      <h2>Credito e Pix do mes</h2>
+      <p class="subtle-copy">Gastos isolados do planejamento principal.</p>
+    </div>
+    <div class="hero-actions">
+      <label class="field compact-field">
+        <span>Ano</span>
+        <select id="monthly-control-year"></select>
+      </label>
+    </div>
+  </div>
+
+  <div class="month-tabs" id="monthly-control-month-tabs" role="tablist" aria-label="Meses"></div>
+  <section class="control-balance-grid" id="monthly-control-balances" aria-label="Saldos do mes"></section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Novo gasto</p>
+        <h3 id="monthly-control-form-title">Lancamento isolado</h3>
+      </div>
+      <span class="panel-badge" id="monthly-control-impact">Impacto no saldo</span>
+    </div>
+
+    <form class="form-grid monthly-control-form-grid" id="monthly-control-form">
+      <label class="field wide">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="100" placeholder="Farmacia, lanche, Uber..." required />
+      </label>
+      <label class="field">
+        <span>Categoria</span>
+        <select name="categoria_id" required></select>
+      </label>
+      <label class="field">
+        <span>Data</span>
+        <input name="data_gasto" type="date" required />
+      </label>
+      <label class="field">
+        <span>Fonte</span>
+        <select name="fonte" required>
+          <option value="credito">Credito</option>
+          <option value="pix">Pix</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Valor</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <label class="field wide">
+        <span>Observacao</span>
+        <input name="observacao" type="text" maxlength="140" placeholder="Opcional" />
+      </label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span id="monthly-control-submit-label">Registrar</span>
+        </button>
+        <button class="secondary-button is-hidden" type="button" id="monthly-control-cancel-edit">Cancelar</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Categorias exclusivas</p>
+        <h3 id="monthly-control-category-title">Categorias do controle</h3>
+      </div>
+      <div class="catalog-header-actions" id="monthly-control-category-controls"></div>
+    </div>
+
+    <form class="form-grid monthly-category-grid" id="monthly-control-category-form">
+      <label class="field">
+        <span>Nome</span>
+        <input name="nome" type="text" maxlength="60" placeholder="Farmacia, almoco..." required />
+      </label>
+      <label class="field">
+        <span>Status</span>
+        <select name="ativo" required>
+          <option value="true">Ativa</option>
+          <option value="false">Inativa</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit">
+          <span data-icon="plus"></span>
+          <span id="monthly-control-category-submit-label">Adicionar</span>
+        </button>
+        <button class="secondary-button is-hidden" type="button" id="monthly-control-category-cancel-edit">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="data-list" id="monthly-control-category-list"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Mes selecionado</p>
+        <h3 id="monthly-control-list-title">Gastos do controle</h3>
+      </div>
+      <div class="inline-totals" id="monthly-control-list-totals"></div>
+    </div>
+    <div class="table-shell">
+      <table class="data-table monthly-control-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descricao</th>
+            <th>Categoria</th>
+            <th>Fonte</th>
+            <th>Observacao</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="monthly-control-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+</section>

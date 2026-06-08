@@ -1,0 +1,55 @@
+<section class="screen stack-xl" data-screen="dashboard">
+  <div class="hero-strip">
+    <div>
+      <p class="eyebrow">FinanceControll</p>
+      <h2>Visao financeira por mes</h2>
+      <p class="subtle-copy">
+        Entradas e visao anual em uma leitura unica.
+      </p>
+    </div>
+    <div class="hero-actions">
+      <label class="field compact-field">
+        <span>Ano</span>
+        <select id="dashboard-year"></select>
+      </label>
+    </div>
+  </div>
+
+  <section class="metrics-grid" id="dashboard-overview" aria-label="Resumo anual"></section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Entradas</p>
+        <h3>Receitas por mes</h3>
+      </div>
+      <span class="panel-badge">Fixa + Variavel</span>
+    </div>
+    <form class="form-grid" id="entry-form">
+      <label class="field">
+        <span>Mes</span>
+        <select name="mes" required></select>
+      </label>
+      <label class="field">
+        <span>Descricao</span>
+        <input name="descricao" type="text" maxlength="80" placeholder="Salario, freela..." required />
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select name="tipo" required>
+          <option value="fixa">Fixa</option>
+          <option value="variavel">Variavel</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Valor</span>
+        <input name="valor" type="text" inputmode="decimal" placeholder="0,00" required />
+      </label>
+      <button class="primary-button" type="submit">
+        <span data-icon="plus"></span>
+        <span>Adicionar</span>
+      </button>
+    </form>
+    <div class="month-income-grid" id="income-by-month"></div>
+  </section>
+</section>

@@ -1,0 +1,13 @@
+{
+  "name": "financecontroll",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sistema web local para controle financeiro pessoal com SQLite e CSV.",
+  "scripts": {
+    "dev": "node scripts/start-local.mjs",
+    "check": "node scripts/check.mjs",
+    "dev:windows": "powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1",
+    "check:windows": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1"
+  }
+}
