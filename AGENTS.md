@@ -4,9 +4,15 @@
 
 Quando o usuário disser algo relacionado a "Registre no vault", registrar o resumo do que foi discutido, planejado, implementado ou validado em arquivos Markdown dentro deste diretório exclusivo do vault:
 
+<<<<<<< HEAD
 `C:\Users\PedroGualberto\OneDrive - DOTKON TECNOLOGIA LTDA\Documentos\PortalDotkon\vault\FinanceControll`
 
 Não registrar notas deste projeto em outras pastas do vault `PortalDotkon`.
+=======
+`C:\Users\PedroGualberto\OneDrive - DOTKON TECNOLOGIA LTDA\Documentos\FinanceControll\vault`
+
+Não registrar notas deste projeto fora do diretório `vault/` deste repositório.
+>>>>>>> origin/main
 
 ### Formato dos registros
 
@@ -29,7 +35,11 @@ Atualizar `00-index.md` quando um novo registro relevante for criado.
 
 Manter uma secao exclusiva de regras de negocio, calculos, validacoes e semantica financeira em:
 
+<<<<<<< HEAD
 `C:\Users\PedroGualberto\OneDrive - DOTKON TECNOLOGIA LTDA\Documentos\PortalDotkon\vault\FinanceControll\regras-negocio`
+=======
+`C:\Users\PedroGualberto\OneDrive - DOTKON TECNOLOGIA LTDA\Documentos\FinanceControll\vault\regras-negocio`
+>>>>>>> origin/main
 
 Toda alteracao futura em regra de negocio, calculo, classificacao financeira, recorrencia, parcelamento, validacao ou semantica de campo deve atualizar ou adicionar a documentacao correspondente em `regras-negocio/` no mesmo trabalho.
 

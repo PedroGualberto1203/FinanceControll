@@ -4,7 +4,10 @@ import {
   renderRecurring,
   renderSummaryProjection
 } from "./screens/dashboard.js";
+<<<<<<< HEAD
 import { renderMonthlyControl } from "./screens/controle-mensal.js";
+=======
+>>>>>>> origin/main
 import { renderExpenses } from "./screens/gastos.js";
 import { hydrateIcons } from "./ui/components.js";
 import { enhanceFormControls } from "./ui/field-controls.js";
@@ -30,11 +33,14 @@ const ROUTES = {
     template: "html/resumo-projecao.html",
     render: renderSummaryProjection
   },
+<<<<<<< HEAD
   "controle-mensal": {
     title: "Controle do Mes",
     template: "html/controle-mensal.html",
     render: renderMonthlyControl
   },
+=======
+>>>>>>> origin/main
   gastos: {
     title: "Registro de Gastos",
     template: "html/gastos.html",

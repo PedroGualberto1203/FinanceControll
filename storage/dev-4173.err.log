@@ -1,0 +1,15 @@
+127.0.0.1 - - [01/Jun/2026 15:50:29] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:03] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:28] "GET /css/theme.css HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jun/2026 15:51:28] "GET /js/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /js/data/api-repository.js HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /js/screens/dashboard.js HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /js/services/recurring-service.js HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /api/data HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:29] "GET /html/dashboard.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:36] "GET /html/gastos.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:38] "GET /html/dashboard.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:40] "GET /html/gastos.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2026 15:51:43] "GET /html/dashboard.html HTTP/1.1" 200 -

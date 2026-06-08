@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .DS_Store
 node_modules/
 __pycache__/
@@ -6,3 +7,14 @@ storage/*.sqlite3-wal
 storage/*.sqlite3-shm
 storage/*.sqlite3.bak-*
 storage/dev-*.log
+=======
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
+.idea/
+.omx/logs/
+.omx/state/
+.omx/metrics.json
+>>>>>>> origin/main

@@ -228,6 +228,7 @@ class FinanceStore:
                     (1, datetime.now().isoformat(timespec="seconds")),
                 )
 
+<<<<<<< HEAD
             if previous_version < 2:
                 for collection in ("controle_mensal_gastos", "controle_mensal_categorias"):
                     connection.execute(create_table_sql(collection))
@@ -238,6 +239,8 @@ class FinanceStore:
                     (2, datetime.now().isoformat(timespec="seconds")),
                 )
 
+=======
+>>>>>>> origin/main
     def _current_schema_version(self, connection: sqlite3.Connection) -> int:
         row = connection.execute("SELECT MAX(version) AS version FROM schema_migrations").fetchone()
         return int(row["version"] or 0)

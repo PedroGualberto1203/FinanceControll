@@ -54,6 +54,7 @@ export const CSV_SCHEMAS = {
       "criado_em"
     ],
     numeric: ["valor_centavos", "dia_pagamento", "mes_inicio", "mes_fim", "parcelas_total"]
+<<<<<<< HEAD
   },
   controle_mensal_gastos: {
     file: "controle_mensal_gastos.csv",
@@ -76,6 +77,8 @@ export const CSV_SCHEMAS = {
     file: "controle_mensal_categorias.csv",
     columns: ["id", "nome", "ativo", "criado_em", "atualizado_em"],
     numeric: []
+=======
+>>>>>>> origin/main
   }
 };
 
